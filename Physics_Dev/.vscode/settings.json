@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "M6_DV1_Aesthetics.sln"
+    "dotnet.defaultSolution": "Physics_Dev.sln"
 }
