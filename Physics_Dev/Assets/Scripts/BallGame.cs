@@ -1,17 +1,15 @@
 using UnityEngine;
 
-public class BallsFromHeaven : MonoBehaviour
+public class BallGame : MonoBehaviour
 {
-    public GameObject ballPrefab;
-    public float startHeight = 10f;
-    public float interval = 0.5f;
+    public Transform dropPoint;
+    public float interval = 3f;
 
     private float nextBallTime = 0f;
     private ObjectPooler objectPooler;
     
     private void Start()
     {
-        nextBallTime = Time.time + interval;
         objectPooler = GetComponent<ObjectPooler>();
     }
 
@@ -19,8 +17,7 @@ public class BallsFromHeaven : MonoBehaviour
     {
         if(Time.time > nextBallTime)
         {
-            Vector3 position = new Vector3(Random.Range(-4f, 4f), startHeight, Random.Range(-4f,4f));
-            NewBall(position);
+            NewBall(dropPoint.position);
             nextBallTime = Time.time + interval;
         }        
     }
@@ -33,7 +30,12 @@ public class BallsFromHeaven : MonoBehaviour
         {
             ball.transform.position = position;
             ball.transform.rotation = Quaternion.identity;
-            ball.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+            
+            Rigidbody rb = ball.GetComponent<Rigidbody>();
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+
+            ball.SetActive(true);
         }
     }
 }
