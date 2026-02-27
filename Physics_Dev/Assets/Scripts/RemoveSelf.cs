@@ -38,6 +38,7 @@ public class RemoveSelf : MonoBehaviour
 
     private void Remove()
     {
-        Destroy(gameObject);
+        // Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
