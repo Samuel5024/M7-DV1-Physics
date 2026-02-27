@@ -12,6 +12,18 @@ public class ShooterBallGame : MonoBehaviour
     private ObjectPooler pool;
     private AudioSource soundEffect;
     private int shooterId;
+    
+    void OnBeatDetected()
+    {
+        if(Random.value < 0.5f)
+        {
+            ShootBall(shooter0);
+        }
+        else{
+            ShootBall(shooter1);
+        }
+    }
+
     void Start()
     {
         if(shootAt == null)
@@ -35,26 +47,30 @@ public class ShooterBallGame : MonoBehaviour
         Debug.LogError("Requires shooter transforms.");
 
         Time.fixedDeltaTime = 0.001f;
+        
+        // Add listnener to processor.onBeat event
+        AudioProcessor processor = FindObjectOfType<AudioProcessor>();
+        processor.onBeat.AddListener(OnBeatDetected);
     }
 
-    void Update()
-    {
-        if(Time.time > nextBallTime)
-        {
-            if(shooterId == 0)
-            {
-                ShootBall(shooter0);
-                shooterId = 1;
-            }
-            else
-            {
-                ShootBall(shooter1);
-                shooterId = 0;
-            }
+    // void Update()
+    // {
+    //     if(Time.time > nextBallTime)
+    //     {
+    //         if(shooterId == 0)
+    //         {
+    //             ShootBall(shooter0);
+    //             shooterId = 1;
+    //         }
+    //         else
+    //         {
+    //             ShootBall(shooter1);
+    //             shooterId = 0;
+    //         }
 
-            nextBallTime = Time.time + interval;
-        }
-    }
+    //         nextBallTime = Time.time + interval;
+    //     }
+    // }
 
     private void ShootBall(Transform shooter)
     {
