@@ -7,10 +7,12 @@ public class BallGame : MonoBehaviour
 
     private float nextBallTime = 0f;
     private ObjectPooler objectPooler;
+    private AudioSource soundEffect;
     
     private void Start()
     {
         objectPooler = GetComponent<ObjectPooler>();
+        soundEffect = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -30,12 +32,11 @@ public class BallGame : MonoBehaviour
         {
             ball.transform.position = position;
             ball.transform.rotation = Quaternion.identity;
-            
             Rigidbody rb = ball.GetComponent<Rigidbody>();
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-
             ball.SetActive(true);
+            soundEffect.Play();
         }
     }
 }
